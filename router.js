@@ -53,6 +53,5 @@ router.delete('/movie/:id', (request, response, next) => {
 })
 
 app
-    //.use(jsonParser)
     .use(router)
     .listen(port, () => console.log(`listen to my port ${port}`))

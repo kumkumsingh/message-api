@@ -2,25 +2,29 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
+let count = 1
 
-const urlencodedparser = bodyParser.urlencoded({ extended: false })
-//app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => console.log(`listen to port no ${port}`))
 
-app.post('/messages', (req, res) => {
+const loggingMessage = (req, res, next) => {
     const msg = req.body.message
     if (msg) {
-        for (let i = 1; i <= 5; i++) {
+        if (count > 5) {
+            res.status(429).send("Sorry !!! Too Many Requests")
+        } else {
+            count++;
             console.log(msg)
+            res.json({
+                message: "We received your request body!"
+            })
         }
-        res.json({
-            message: "We received your request body!",
-        })
     }
     else {
-        res.send(400).end()
+        res.status(400).send("Sorry to bad").end()
     }
 
-})
+}
+//http POST :3000/messages message=message6
+app.post('/messages', loggingMessage)
