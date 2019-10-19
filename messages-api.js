@@ -9,13 +9,15 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => console.log(`listen to port no ${port}`))
 
-app.post('/messages', urlencodedparser, (req, res) => {
-
-    // message = req.body
-    if (!req.body) {
-
-        res.status(400).end();
+app.post('/messages', (req, res) => {
+    if (req.body.text) {
+        console.log(req.body)
+        res.json({
+            message: "We received your request body!",
+        })
     }
-    console.log(req.body)
-    res.json({ "message": "Message received loud and clear" })
+    else {
+        res.send(400).end()
+    }
+
 })
