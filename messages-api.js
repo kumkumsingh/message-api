@@ -10,8 +10,11 @@ app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(port, () => console.log(`listen to port no ${port}`))
 
 app.post('/messages', (req, res) => {
-    if (req.body.text) {
-        console.log(req.body)
+    const msg = req.body.message
+    if (msg) {
+        for (let i = 1; i <= 5; i++) {
+            console.log(msg)
+        }
         res.json({
             message: "We received your request body!",
         })

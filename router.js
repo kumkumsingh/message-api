@@ -13,7 +13,7 @@ router.get('/Movies', (request, response, next) => {
     const limit = request.query.limit || 3
     const offset = request.query.offset || 0
     if (limit && offset) {
-    Movies.findAndCountAll({ limit, offset })
+        Movies.findAndCountAll({ limit, offset })
             .then(result => response.send({ Data: result.rows, total: result.count }))
     }
     Movies.findAll()
@@ -31,7 +31,7 @@ router.put('/movie/:id', (request, response, next) => {
         .then(movie => {
             if (movie) {
                 return movie.update(request.body)
-        .then(movie => { response.send(movie) })
+                    .then(movie => { response.send(movie) })
             }
         })
         .catch(err => next(err))
